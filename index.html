@@ -1,1 +1,184 @@
-hello world
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Compute for Learning — GDR C4P · GT</title>
+  <meta name="description" content="GDR C4P Working Group (GT): Compute for Learning — co-design at the intersection of large-scale AI and HPC." />
+  <link rel="canonical" href="http://gdr-hpc4learning.github.io/" />
+  <style>
+    :root{
+      --bg:#fff; --fg:#101214; --muted:#5c657a; --accent:#1c6ff8;
+      --border:#e8ecf3; --chip:#f6f8fc; --card:#fff; --max:980px; --r:14px;
+      --shadow:0 2px 24px rgba(16,18,20,.06);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0f1216; --fg:#e9eef6; --muted:#9aa6bf; --accent:#5a8cff; --border:#1d2330; --chip:#151b24; --card:#111821; --shadow:none; }
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 18px}
+    header{border-bottom:1px solid var(--border)}
+    .top-logos{display:flex;gap:12px;align-items:center;justify-content:flex-start;flex-wrap:wrap;padding:10px 0}
+    .top-logos img{height:68px;width:auto;background:var(--chip);border:1px dashed var(--border);border-radius:10px;padding:6px;background-color:white}
+    nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+    .brand{font-weight:700}
+    .spacer{flex:1}
+    .navlink{padding:8px 10px;border-radius:10px}
+    .navlink:hover{background:var(--chip);text-decoration:none}
+    .hero{padding:18px 0 6px}
+    .hero h1{margin:.2rem 0;font-size:clamp(26px,4.2vw,40px);line-height:1.1}
+    .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    section{padding:26px 0;border-bottom:1px solid var(--border)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+    .grid{display:grid;gap:16px}
+    @media (min-width:860px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-2{grid-template-columns:repeat(2,1fr)} }
+    /* Seminars accordion */
+    .seminar{border:1px solid var(--border);border-radius:12px;padding:12px 14px;background:var(--card)}
+    .seminar header{display:flex;gap:10px;align-items:baseline;border:0;padding:0;margin:0}
+    .seminar .meta{font-size:14px;color:var(--muted)}
+    details{margin-top:8px;border-top:1px dashed var(--border);padding-top:8px}
+    summary{cursor:pointer;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    summary:after{content:"▸";margin-left:6px}
+    details[open] summary:after{content:"▾"}
+    .small{font-size:14px;color:var(--muted)}
+    footer{padding:28px 0;color:var(--muted)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <!-- Logos at the very top (replace src paths with real files) -->
+    <div class="top-logos" aria-label="Partner logos">
+      <img src="https://mygdr.hosted.lip6.fr/media/Logo/C4P.png" alt="GDR C4P" />
+      <img src="https://scai.sorbonne-universite.fr/assets/logo.svg" alt="SCAI — Sorbonne Center for Artificial Intelligence" />
+      <img src="https://www.pepr-ia.fr/wp-content/uploads/2024/05/cropped-FR2030_Intelligence-artificielle_Couleur-1.png" alt="PEPR SHARP" />
+      <img src="https://lh3.googleusercontent.com/sitesv/AICyYdbugqwaZ_anaSiU4nDUc_xKaUQsWza4HwGdRiiU_cukd2L1qMB59gYd0A5d6Xy37zb5eSxfx171xjcKXA_AQMOIwjeWpxNoEsuNUSe4zk83tDiay-VWLLVXJ6Yw9Y8lhKmQ2qN6CHRKgFBAoNe1sw3OantrPmnNdvnPbVIHa3CaJFLS5MHcCd80TMwyHCFQf1f7wmxUE0WQXv1Rd-FflF7gXUdC_csXohFNf1s=w1280" alt="ELLIS" />
+    </div>
+
+    <nav aria-label="Primary">
+      <div class="brand">HPC for Learning — <span class="small">GDR C4P · Working Group (GT)</span></div>
+      <div class="spacer"></div>
+      <a class="navlink" href="#about">About</a>
+      <a class="navlink" href="#seminars">Seminars</a>
+      <a class="navlink" href="#committee">Program Committee</a>
+      <a class="navlink" href="#resources">Resources</a>
+    </nav>
+
+    <div class="hero">
+      <h1>HPC for Learning</h1>
+      <p class="small">
+The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted.lip6.fr/accueilGDR/21/10">CNRS GDR C4P</a>) is to build a collaborative community at the crossroads
+ of AI and HPC, co-designing algorithms and architectures for scalable training, memory/communication-efficient learning, accelerator-optimized algorithms,
+ and robust, reproducible inference on modern hardware.
+      </p>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+
+  <section id="seminars">
+    <div class="wrap">
+      <h2>Seminars</h2>
+      <p class="small">About monthly, in person. Click to unfold abstracts.</p>
+
+      <!-- Example entries — duplicate and edit as needed -->
+      <article class="seminar">
+        <header>
+          <h3 style="margin:0">2025-11-20 · 14:00–15:00 — Dr. Jane Doe</h3>
+        </header>
+        <div class="meta">Location: SCAI, Sorbonne Université, Paris</div>
+        <details>
+          <summary>Abstract</summary>
+          <p>
+            Training frontier models on heterogeneous clusters: practical 3D parallelism layouts, memory-offload
+            trade-offs, and communication reduction via quantized collectives.
+          </p>
+        </details>
+      </article>
+
+      <article class="seminar" style="margin-top:12px">
+        <header>
+          <h3 style="margin:0">2025-12-11 · 10:30–11:30 — Prof. John Smith</h3>
+        </header>
+        <div class="meta">Location: TBA (Paris)</div>
+        <details>
+          <summary>Abstract</summary>
+          <p>
+            Compiler-level kernel fusion for tensorized operators on GPUs: from sparse MoE blocks to low-latency inference paths.
+          </p>
+        </details>
+      </article>
+
+    </div>
+  </section>
+
+<section id="committee">
+  <div class="wrap">
+    <h2>Program Committee</h2>
+    <div class="grid cols-3">
+
+      <div class="card">
+        <h3>Program Chairs</h3>
+        <ul>
+          <li><strong><a href="https://edouardoyallon.github.io/" target="_blank" rel="noopener">Edouard Oyallon (chair)</a></strong> — CNRS, Sorbonne University</li>
+          <li><a href="#" target="_blank" rel="noopener">Alexandre Défossez</a> — Kyutai</li>
+          <li><a href="#" target="_blank" rel="noopener">Michael Eickenberg</a> — H</li>
+          <li><a href="#" target="_blank" rel="noopener">Thomas Moreau</a> — Inria</li>
+<li><a href="#" target="_blank" rel="noopener">Sixin Zhang</a> — IRIT</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+  <section id="resources">
+    <div class="wrap">
+      <h2>Links</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Mailing list</h3>
+          <p class="small">To register to our mailing list, please fill in <a href="https://docs.google.com/forms/d/e/1FAIpQLScfyyJlHyKXjuOzQYf8Pil_sZohCwyaNkIMgaDYItOCdi2bdA/viewform?usp=dialog">this form</a>.</p>
+        </div>
+  <div class="card">   
+        <h3>Contact</h3>   
+        <p class="small">
+          To propose a talk, please send a title, short abstract, at edouard.oyallon at cnrs dot fr.
+        </p>  
+      </div>  
+
+        <div class="card">
+          <h3>Partners</h3>
+          <p class="small">
+           <a href="https://mygdr.hosted.lip6.fr/accueilGDR/21/10">GDR C4P</a> · <a href="https://scai.sorbonne-universite.fr/">SCAI</a> · 
+<a href="https://www.pepr-ia.fr/projet/sharp/">PEPR SHARP</a> · <a href="https://sites.google.com/view/ellis-paris/">Paris ELLIS Unit</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid cols-2">
+      <p class="small">© <span id="y"></span> GT HPC4AI — GDR C4P</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+
