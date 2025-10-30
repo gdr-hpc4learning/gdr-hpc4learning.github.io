@@ -46,8 +46,78 @@
     details[open] summary:after{content:"▾"}
     .small{font-size:14px;color:var(--muted)}
     footer{padding:28px 0;color:var(--muted)}
+/* Seminars sub-nav chips */
+.seminar-subnav{display:flex;gap:8px;margin:10px 0 14px}
+.chip{display:inline-block;border:1px solid var(--border);background:var(--chip);
+  border-radius:999px;padding:6px 10px;font-size:14px}
+.chip:hover{text-decoration:none;background:var(--card)}
+
+/* Lists + scrollable past section */
+.seminar-list{display:grid;gap:12px}
+.scrollbox{max-height:360px;overflow:auto;padding-right:6px;border:1px dashed var(--border);
+  border-radius:12px;background:var(--card)}
+.empty-note{margin:10px}
+.h4{font-size:18px;margin:12px 0 8px}
+
   </style>
 </head>
+
+<script>
+  // --- Seminars: split upcoming vs past, with sorting ---
+  (function(){
+    const now = new Date();
+    const upcoming = document.getElementById('upcoming-list');
+    const past = document.getElementById('past-list');
+    if(!upcoming || !past) return;
+
+    // Collect all seminar articles currently under "upcoming-list"
+    const items = Array.from(upcoming.querySelectorAll('.seminar'));
+
+    // Partition by start datetime (read from data-date)
+    const parsed = items.map(el => {
+      const d = new Date(el.getAttribute('data-date') || '');
+      return { el, date: d, isValid: !isNaN(d) };
+    });
+
+    // Move invalid/missing dates to upcoming (conservative)
+    const valid = parsed.filter(x => x.isValid);
+    const invalid = parsed.filter(x => !x.isValid);
+    invalid.forEach(x => upcoming.appendChild(x.el));
+
+    // Split by time and sort
+    const future = valid.filter(x => x.date >= now)
+      .sort((a,b) => a.date - b.date); // soonest first
+    const pastItems = valid.filter(x => x.date < now)
+      .sort((a,b) => b.date - a.date); // most recent first
+
+    // Clear current list and re-append in order
+    upcoming.innerHTML = '';
+    future.forEach(x => upcoming.appendChild(x.el));
+
+    // Fill past list or show "empty" note
+    past.innerHTML = '';
+    if(pastItems.length){
+      pastItems.forEach(x => past.appendChild(x.el));
+    } else {
+      const p = document.createElement('p');
+      p.className = 'small empty-note';
+      p.textContent = 'No past seminars yet.';
+      past.appendChild(p);
+    }
+
+    // Hide headings if a section is empty
+    const hUpcoming = document.getElementById('upcoming');
+    const hPast = document.getElementById('past');
+    if(!upcoming.children.length && hUpcoming) hUpcoming.style.display = 'none';
+    if(!pastItems.length && hPast) hPast.style.display = 'none';
+  })();
+
+  // (existing) Year footer safeguard — remove if unused
+  const y = document.getElementById('y');
+  if (y) y.textContent = new Date().getFullYear();
+</script>
+
+
 <body>
 
 <header>
@@ -80,41 +150,50 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
 </header>
 
 <main id="content">
+<section id="seminars">
+  <div class="wrap">
+    <h2>Seminars</h2>
+    <p class="small">
+      In-person, about once a month. Because space is limited, registration is free but required.
+      Seminars begin in 2026. Click to unfold abstracts.
+    </p>
 
-  <section id="seminars">
-    <div class="wrap">
-      <h2>Seminars</h2>
-      <p class="small">In-person, about once a month. Because space is limited, registration is free but required. Seminars begin in January 2026. Click to unfold abstracts.</p>
+    <!-- Local sub-nav to jump between blocks -->
+    <nav class="seminar-subnav" aria-label="Seminars subsections">
+      <a class="chip" href="#upcoming">Upcoming</a>
+      <a class="chip" href="#past">Past seminars</a>
+    </nav>
 
-      <article class="seminar">
+    <!-- Upcoming list -->
+    <h3 id="upcoming" class="h4">Upcoming</h3>
+    <div id="upcoming-list" class="seminar-list" aria-live="polite">
+      <!-- Keep adding new seminars here; JS will move past ones automatically -->
+
+      <article class="seminar" data-date="2026-02-06T16:00:00">
         <header>
-          <h3 style="margin:0">2026-01-20 · 14:00–15:00 — Dr. Jane Doe</h3>
+          <h4 style="margin:0">6 Feb 2026 · 16:00–17:00 — Ulysse Beaugnon (Google)</br>Title: TBD</h4>
         </header>
-        <div class="meta">Location: SCAI, Sorbonne Université, Paris. To attend, register <a href="#">here</a>.</div>
+        <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSfz3sb_LEITGuqDizntkKDabfTR-w9tvWH2jH5NO7ljmjZjxA/viewform">here</a>.</div>
         <details>
           <summary>Abstract</summary>
           <p>
-            Training frontier models on heterogeneous clusters: practical 3D parallelism layouts, memory-offload
-            trade-offs, and communication reduction via quantized collectives.
+            TBD
           </p>
         </details>
       </article>
 
-      <article class="seminar" style="margin-top:12px">
-        <header>
-          <h3 style="margin:0">2026-02-11 · 10:30–11:30 — Prof. John Smith</h3>
-        </header>
-        <div class="meta">Location: TBA (Paris)</div>
-        <details>
-          <summary>Abstract</summary>
-          <p>
-            Compiler-level kernel fusion for tensorized operators on GPUs: from sparse MoE blocks to low-latency inference paths.
-          </p>
-        </details>
-      </article>
 
     </div>
-  </section>
+
+    <!-- Past list (scrollable) -->
+    <h3 id="past" class="h4" style="margin-top:24px">Past seminars</h3>
+    <div id="past-list" class="seminar-list scrollbox" aria-live="polite" aria-label="Past seminars">
+      <!-- JS will move past seminars here, most-recent first -->
+      <p class="small empty-note">No past seminars yet.</p>
+    </div>
+  </div>
+</section>
+
 
 <section id="committee">
   <div class="wrap">
@@ -127,7 +206,7 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
           <li><strong><a href="https://edouardoyallon.github.io/" target="_blank" rel="noopener">Edouard Oyallon</a></strong> — CNRS, Sorbonne University</li>
           <li><a href="https://ai.honu.io" target="_blank" rel="noopener">Alexandre Défossez</a> — Kyutai</li>
           <li><a href="#" target="_blank" rel="noopener">Michael Eickenberg</a> — H</li>
-          <li><a href="#" target="_blank" rel="noopener">Thomas Moreau</a> — Inria</li>
+          <li><a href="https://tommoral.github.io/" target="_blank" rel="noopener">Thomas Moreau</a> — Inria</li>
 <li><a href="#" target="_blank" rel="noopener">Sixin Zhang</a> — IRIT</li>
         </ul>
       </div>
@@ -144,7 +223,7 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
       <div class="grid cols-2">
         <div class="card">
           <h3>Mailing list</h3>
-          <p class="small">To register to our mailing list, please fill in <a href="https://docs.google.com/forms/d/e/1FAIpQLScfyyJlHyKXjuOzQYf8Pil_sZohCwyaNkIMgaDYItOCdi2bdA/viewform?usp=dialog">this form</a>.</p>
+          <p class="small">To register to our mailing list, please fill in <a href="https://docs.google.com/forms/d/e/1FAIpQLScfyyJlHyKXjuOzQYf8Pil_sZohCwyaNkIMgaDYItOCdi2bdA/viewform">this form</a>.</p>
         </div>
   <div class="card">   
         <h3>Contact</h3>   
