@@ -63,58 +63,42 @@
 </head>
 
 <script>
-  // --- Seminars: split upcoming vs past, with sorting ---
-  (function(){
-    const now = new Date();
-    const upcoming = document.getElementById('upcoming-list');
-    const past = document.getElementById('past-list');
-    if(!upcoming || !past) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const now = new Date();
+  const upcoming = document.getElementById('upcoming-list');
+  const past = document.getElementById('past-list');
+  if(!upcoming || !past) return;
 
-    // Collect all seminar articles currently under "upcoming-list"
-    const items = Array.from(upcoming.querySelectorAll('.seminar'));
+  const items = Array.from(upcoming.querySelectorAll('.seminar'));
 
-    // Partition by start datetime (read from data-date)
-    const parsed = items.map(el => {
-      const d = new Date(el.getAttribute('data-date') || '');
-      return { el, date: d, isValid: !isNaN(d) };
-    });
+  const parsed = items.map(el => {
+    const d = new Date(el.getAttribute('data-date') || '');
+    return { el, date: d, isValid: !isNaN(d) };
+  });
 
-    // Move invalid/missing dates to upcoming (conservative)
-    const valid = parsed.filter(x => x.isValid);
-    const invalid = parsed.filter(x => !x.isValid);
-    invalid.forEach(x => upcoming.appendChild(x.el));
+  const valid = parsed.filter(x => x.isValid);
+  const invalid = parsed.filter(x => !x.isValid);
+  invalid.forEach(x => upcoming.appendChild(x.el));
 
-    // Split by time and sort
-    const future = valid.filter(x => x.date >= now)
-      .sort((a,b) => a.date - b.date); // soonest first
-    const pastItems = valid.filter(x => x.date < now)
-      .sort((a,b) => b.date - a.date); // most recent first
+  const future = valid.filter(x => x.date >= now).sort((a,b) => a.date - b.date);
+  const pastItems = valid.filter(x => x.date < now).sort((a,b) => b.date - a.date);
 
-    // Clear current list and re-append in order
-    upcoming.innerHTML = '';
-    future.forEach(x => upcoming.appendChild(x.el));
+  upcoming.innerHTML = '';
+  future.forEach(x => upcoming.appendChild(x.el));
 
-    // Fill past list or show "empty" note
-    past.innerHTML = '';
-    if(pastItems.length){
-      pastItems.forEach(x => past.appendChild(x.el));
-    } else {
-      const p = document.createElement('p');
-      p.className = 'small empty-note';
-      p.textContent = 'No past seminars yet.';
-      past.appendChild(p);
-    }
+  const firstDetails = upcoming.querySelector('.seminar details');
+  if (firstDetails) firstDetails.open = true;
 
-    // Hide headings if a section is empty
-    const hUpcoming = document.getElementById('upcoming');
-    const hPast = document.getElementById('past');
-    if(!upcoming.children.length && hUpcoming) hUpcoming.style.display = 'none';
-    if(!pastItems.length && hPast) hPast.style.display = 'none';
-  })();
-
-  // (existing) Year footer safeguard — remove if unused
-  const y = document.getElementById('y');
-  if (y) y.textContent = new Date().getFullYear();
+  past.innerHTML = '';
+  if(pastItems.length){
+    pastItems.forEach(x => past.appendChild(x.el));
+  } else {
+    const p = document.createElement('p');
+    p.className = 'small empty-note';
+    p.textContent = 'No past seminars yet.';
+    past.appendChild(p);
+  }
+});
 </script>
 
 
@@ -171,13 +155,13 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
 
       <article class="seminar" data-date="2026-02-06T18:00:00">
         <header>
-          <h4 style="margin:0">6 Feb 2026 · 18:00–19:00 — Ulysse Beaugnon (Google)</br>Title: TBD</h4>
+          <h4 style="margin:0">6 Feb 2026 · 18:00–19:00 — Ulysse Beaugnon (Google)</br>Title: ML for Systems: Practical Lessons from Deploying AI in Google's Production Infrastructure</h4>
         </header>
         <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSfz3sb_LEITGuqDizntkKDabfTR-w9tvWH2jH5NO7ljmjZjxA/viewform">here</a>.</div>
         <details>
           <summary>Abstract</summary>
           <p>
-            TBD
+            The foundational software systems that power machine learning advances—operating systems, compilers, and storage stacks—remain largely governed by sub-optimal and often outdated hand-tuned heuristics. As the complexity of modern systems grows and the pressure on compute resources intensifies, these static rules are becoming a bottleneck. In this talk, I will cover a few selected examples of how we applied ML to address system problems within Google production infrastructure. Beyond the success stories, I will also discuss the challenges, and lessons learned the hard way from applying ML in a system serving billions of users each day.
           </p>
         </details>
       </article>
@@ -193,7 +177,18 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
           </p>
         </details>
       </article>
-
+ <article class="seminar" data-date="2026-06-05T18:00:00">
+        <header>
+          <h4 style="margin:0">5 June 2026 · 18:00–19:00 — Eugene Belilovsky (MILA)</br>Title: TBD</h4>
+        </header>
+        <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6WC99OXh8q3L5CwnMnCcB0J7s0sE_uLIp1OhgOmJszI_0ew/viewform">here</a>.</div>
+        <details>
+          <summary>Abstract</summary>
+          <p>
+            TBD
+          </p>
+        </details>
+      </article>
 
 
 
@@ -219,6 +214,7 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
         <h3>Program Chairs</h3>
         <ul>
           <li><strong><a href="https://edouardoyallon.github.io/" target="_blank" rel="noopener">Edouard Oyallon</a></strong> — CNRS, Sorbonne University</li>
+  <li><a href="#" target="_blank" rel="noopener">Alexandre Allauzen</a> — Paris Dauphine</li>
           <li><a href="https://ai.honu.io" target="_blank" rel="noopener">Alexandre Défossez</a> — Kyutai</li>
           <li><a href="#" target="_blank" rel="noopener">Michael Eickenberg</a> — H</li>
           <li><a href="https://tommoral.github.io/" target="_blank" rel="noopener">Thomas Moreau</a> — Inria</li>
@@ -273,9 +269,6 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
   </div>
 </footer>
 
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-</script>
 </body>
 </html>
 
