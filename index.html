@@ -59,6 +59,23 @@
 .empty-note{margin:10px}
 .h4{font-size:18px;margin:12px 0 8px}
 
+.map-right{
+  float: right;
+  width: 250px;      /* adjust size */
+  max-width: 50%;    /* keeps it responsive */
+  height: auto;
+  margin: 0 0 0.5em 1em; /* space around image */
+}
+@media (max-width: 600px){
+  .map-right{
+    float: none;
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    margin: 0.75em auto;
+  }
+}
+
   </style>
 </head>
 
@@ -138,10 +155,10 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
 <section id="seminars">
   <div class="wrap">
     <h2>Seminars</h2>
-    <p class="small">
-      In-person, about once a month. Because space is limited, registration is free but required.
-      Seminars begin in 2026. Click to unfold abstracts.
-    </p>
+<p class="small">
+  In person, about once a month on a Thursday evening, with a limited number of seats. Seminars are generally hosted at SCAI (see a map <a href="scai_map.png" alt="Map to SCAI">here</a>). Because space is limited, registration is free but required. Click to expand the abstracts.
+
+</p>
 
     <!-- Local sub-nav to jump between blocks -->
     <nav class="seminar-subnav" aria-label="Seminars subsections">
@@ -168,9 +185,31 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
       </article>
       <article class="seminar" data-date="2026-03-13T16:00:00">
         <header>
-          <h4 style="margin:0">13 Mar 2026 · 16:00–17:00 — Alena Kopanicakova (Toulouse INP)</br>Title: TBD</h4>
+          <h4 style="margin:0">13 Mar 2026 · 16:00–17:00 — Alena Kopanicakova (Toulouse INP)</br>Title: Training of Deep Neural Networks Using Multilevel and Domain-Decomposition Methods</h4>
         </header>
-        <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSc2NfQSA_PvkJjutACSfae3AD3kG1PHT2_k1BqXd0ocgYjIkw/viewform?usp=publish-editor">here</a>.</div>
+        <div class="meta">Location: <font color="red">Exceptionally, the seminar will be online</font>. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSc2NfQSA_PvkJjutACSfae3AD3kG1PHT2_k1BqXd0ocgYjIkw/viewform?usp=publish-editor">here</a>.</div>
+        <details>
+          <summary>Abstract</summary>
+          <p>
+            Training deep neural networks (DNNs) is predominantly carried out using stochastic gradient descent and its variants.
+While these methods are robust and widely applicable, their convergence often deteriorates for large-scale, ill-conditioned, or stiff problems commonly encountered in scientific machine learning.
+This has motivated the development of more advanced training strategies that can accelerate convergence, offer better parallelism, enable convergence control, and facilitate the automatic tuning of hyperparameters.
+To this end, we introduce a novel training framework for DNNs inspired by nonlinear multilevel and domain-decomposition (ML-DD) methods.
+Starting from deterministic ML-DD algorithms, we will discuss how to ensure the convergence in the presence of the subsampling noise.
+Moreover, we will present several strategies for constructing a hierarchy of subspaces by exploring the properties of the network architecture, data representation, and the loss function.
+The performance of the proposed ML-DD training algorithms will be demonstrated through a series of numerical experiments from the field of scientific machine learning, such as physics-informed neural networks or operator learning approaches.
+<br><br>
+[1] Gratton, S., Kopaničáková, A., & Toint, P. L. (2023). Multilevel objective-function-free optimization with an application to neural networks training. SIAM Journal on Optimization, 33(4), 2772-2800.<br>
+[2] Gratton, S., Kopaničáková, A., & Toint, P. (2025). Recursive bound-constrained AdaGrad with applications to multilevel and domain decomposition minimization. arXiv preprint arXiv:2507.11513.
+          </p>
+        </details>
+      </article>
+
+<article class="seminar" data-date="2026-05-06T18:00:00">
+        <header>
+          <h4 style="margin:0">6 May 2026 · 18:00–19:00 — Hamza Benchekroun (H company)</br>Title: TBD</h4>
+        </header>
+        <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. <font color="red">Exceptionally, the seminar is being held on a Wednesday.</font> To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLScYy9i94qvkczahzkADSQyyvmcvwSYvZ2TjG4A-k7nqmmezlA/viewform?usp=publish-editor">here</a>.</div>
         <details>
           <summary>Abstract</summary>
           <p>
@@ -179,24 +218,11 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
         </details>
       </article>
 
-<article class="seminar" data-date="2026-05-07T18:00:00">
+
+
+ <article class="seminar" data-date="2026-06-04T18:00:00">
         <header>
-          <h4 style="margin:0">7 May 2026 · 18:00–19:00 — Hamza Benchekroun (H company)</br>Title: TBD</h4>
-        </header>
-        <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. <font color="red">Exceptionally, the seminar is being held on a Thursday.</font> To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLScYy9i94qvkczahzkADSQyyvmcvwSYvZ2TjG4A-k7nqmmezlA/viewform?usp=publish-editor">here</a>.</div>
-        <details>
-          <summary>Abstract</summary>
-          <p>
-            TBD
-          </p>
-        </details>
-      </article>
-
-
-
- <article class="seminar" data-date="2026-06-05T18:00:00">
-        <header>
-          <h4 style="margin:0">5 June 2026 · 18:00–19:00 — Eugene Belilovsky (MILA)</br>Title: TBD</h4>
+          <h4 style="margin:0">4 June 2026 · 18:00–19:00 — Eugene Belilovsky (MILA)</br>Title: TBD</h4>
         </header>
         <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6WC99OXh8q3L5CwnMnCcB0J7s0sE_uLIp1OhgOmJszI_0ew/viewform">here</a>.</div>
         <details>
@@ -206,9 +232,9 @@ The mission of the HPC for Learning GT (within the <a href="https://mygdr.hosted
           </p>
         </details>
       </article>
-<article class="seminar" data-date="2026-06-26T18:00:00">
+<article class="seminar" data-date="2026-06-25T18:00:00">
         <header>
-          <h4 style="margin:0">26 June 2026 · 18:00–19:00 — Onofrio Semeraro (CNRS/LISN)</br>Title: TBD</h4>
+          <h4 style="margin:0">25 June 2026 · 18:00–19:00 — Onofrio Semeraro (CNRS/LISN)</br>Title: TBD</h4>
         </header>
         <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLSdSMMV9isV_bqljEXBJj307sOnEZl3VjHHMhlKdTTkGonZvHQ/viewform?usp=publish-editor">here</a>.</div>
         <details>
