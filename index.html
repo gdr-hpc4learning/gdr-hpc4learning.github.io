@@ -208,13 +208,13 @@ The performance of the proposed ML-DD training algorithms will be demonstrated t
 
 <article class="seminar" data-date="2026-03-19T18:00:00">
         <header>
-          <h4 style="margin:0">19 March 2026 · 18:00–19:00 — Max Zimmer (Zuse Institute Berlin)</br>Title: TBD</h4>
+          <h4 style="margin:0">19 March 2026 · 18:00–19:00 — Max Zimmer (Zuse Institute Berlin)</br>Title: Local Pruning: Efficient Post-Training Compression at Scale</h4>
         </header>
         <div class="meta">Location: Seminar room of SCAI, Sorbonne Université, Paris. To attend, please register <a href="https://docs.google.com/forms/d/e/1FAIpQLScUyZS5osPgLgRhbyxvsaZRof1dnVtFL6qUzM2eDxvsRZwDCQ/viewform?usp=publish-editor">here</a>.</div>
         <details>
           <summary>Abstract</summary>
           <p>
-            TBD
+            Pruning -- the removal of parameters from neural networks -- is a well-known technique for reducing the inference compute and memory requirements of large models. State-of-the-art methods for LLMs operate layer-wise, minimizing a per-layer objective on a small calibration dataset. The underlying NP-hard problem is that of finding a binary mask that determines which weights to keep, the so-called mask selection problem. While many existing approaches effectively ignore weight interactions in that selection, this talk presents two alternatives. Operating in discrete space, SparseSwaps is a local search method that refines any given mask via pairwise weight exchanges, each evaluable efficiently. On the other hand, operating in continuous space, SparseFW relaxes the combinatorial constraints to their convex hull and solves the resulting convex program using the Frank-Wolfe algorithm. Across modern GPT architectures, both methods reduce per-layer pruning error by up to 60-80% over existing approaches, with consistent improvements in perplexity and downstream accuracy.
           </p>
         </details>
       </article>
